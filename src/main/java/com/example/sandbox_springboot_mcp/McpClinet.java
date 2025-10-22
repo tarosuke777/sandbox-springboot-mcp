@@ -12,7 +12,6 @@ import dev.langchain4j.mcp.client.McpClient;
 import dev.langchain4j.model.chat.ChatModel;
 import java.net.http.HttpClient;
 
-
 public class McpClinet {
         interface Assistant {
                 String chat(String userMessage);
@@ -25,13 +24,17 @@ public class McpClinet {
                 McpClient client = new DefaultMcpClient.Builder().transport(transport).build();
                 ToolProvider provider = McpToolProvider.builder().mcpClients(client).build();
 
-                String modelName = "qwen/qwen3-1.7b";
-                ChatModel model = OpenAiChatModel.builder().baseUrl("http://localhost:1234/v1")
+                // String modelName = "qwen/qwen3-1.7b";
+                String modelName = "ai/qwen3:0.6B-F16";
+                ChatModel model = OpenAiChatModel.builder()
+                                // .baseUrl("http://localhost:1234/v1")
+                                .baseUrl("http://localhost:12434/engines/llama.cpp/v1")
                                 .modelName(modelName)
                                 .httpClientBuilder(JdkHttpClient.builder()
                                                 .httpClientBuilder(HttpClient.newBuilder().version(
                                                                 HttpClient.Version.HTTP_1_1)))
                                 .build();
+
                 Assistant assistant = AiServices.builder(Assistant.class).chatModel(model)
                                 .toolProvider(provider).build();
                 // String res = assistant.chat("""
@@ -40,7 +43,7 @@ public class McpClinet {
 
                 String res = assistant.chat("""
                                 /no_think
-                                好きな曲名リストを教えて""");
+                                好きな曲名一覧を取得して""");
 
                 System.out.println(res);
                 client.close();
