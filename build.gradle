@@ -27,6 +27,7 @@ dependencies {
 	implementation("dev.langchain4j:langchain4j-mcp:1.2.0-beta8")
 	implementation("dev.langchain4j:langchain4j-open-ai:1.2.0")
 	implementation("dev.langchain4j:langchain4j-http-client-jdk:1.2.0")
+	implementation("dev.langchain4j:langchain4j-embeddings-all-minilm-l6-v2:1.2.0-beta8")
 
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.ai:spring-ai-starter-mcp-server-webmvc'
